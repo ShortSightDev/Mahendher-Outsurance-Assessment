@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Read Excel file and Write to txt file";
+}
+<h2>Read Excel Data</h2>
+
+
+@using OutsuranceTest.Models;
+@model IEnumerable<ExcelDataModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Read Data from Excel file and write ti Text File.</title>
+</head>
+
+<body>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="postedFile" />
+        <input type="submit" value="Import" />
+
+        @Html.AntiForgeryToken();
+        @Html.ValidationSummary();
+    }
+
+    @if (Model.Count() > 0)
+    {
+
+        <hr />
+        <table cellpadding="0" cellspacing="0" class="table table-responsive table-bordered">
+            <tr></tr>
+
+            @foreach (ExcelDataModel excelDataModel in Model)
+            {
+                <tr>
+                    <td>@excelDataModel.FirstName</td>
+                    <td>@excelDataModel.LastName</td>
+                    <td>@excelDataModel.Address</td>
+                    <td>@excelDataModel.PhoneNumber</td>
+                </tr>
+            }
+
+        </table>
+
+    }
+
+</body>
+
+</html>
